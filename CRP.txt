@@ -1,0 +1,14 @@
+[Request page] -(idle)- [Build DOM] -(blocked)- [Build CSSOM] [Run JavaScript] [Build DOM] [Render Page]
+ get html -------------- response
+                          +- get css ------------ response (render blocking, fonts.googleapis.com/css?family=Open+Sans:400,700)
+                          +- get css ------------ response (render blocking, css/style.css)
+                          +- get css ------------ response (render blocking, css/print.css)
+                          +- get js ------------- response (parser blocking, http://www.google-analytics.com/analytics.js)
+
+---------------------------------------------------------------------------------
+                          +- get js async (non-blocking, js/perfmatters.js)
+
+
+the number of critical resources: 5
+the number of critical KB: 4580 + 14747 + 1124 + 853 + 403 = 21.2 KB
+the critical path length: 2
